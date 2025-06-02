@@ -77,11 +77,3 @@ Para ejecutar una actividad (ejemplo, en tu caso debes colocar tarea_1):
 ## Licencia
 
 Este proyecto está bajo la licencia MIT. Consulta el archivo \LICENSE\ para más detalles.
-
-  
-
-## Contribuciones
-
-¡Las contribuciones son bienvenidas! Por favor, abre un issue o un pull request si deseas mejorar el proyecto.
-
-  
