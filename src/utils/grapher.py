@@ -1,4 +1,4 @@
-# src/utils/grapher.py
+# src/utils/grapher. py
 import matplotlib.pyplot as plt
 
 def plot_signals(t, n, ts, señales):
