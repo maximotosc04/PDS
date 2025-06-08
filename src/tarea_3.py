@@ -4,28 +4,38 @@ import sys
 
 def capturar():
     """Genera todas las señales y las envía a graficar"""
+    if len(sys.argv) < 4:
+        print("Uso: python main.py tarea_3 <amplitud> <frecuencia> <fase>")
+        return
     
-    A = float(sys.argv[2])
-    F = float(sys.argv[3])
-    R = float(sys.argv[3])
-    print(A, F, R)
-    t = np.linspace(-1.0, 5.0, 1000)
-    fs = 40.0
-    ts = 0.01
-    n = np.arange(-40, 201)
+    try:
+        A = float(sys.argv[2])  # Amplitud
+        F = float(sys.argv[3])  # Frecuencia (Hz)
+        phi = float(sys.argv[4])  # Fase (radianes)
+    except (ValueError, IndexError):
+        print("Error: Los parámetros deben ser números (A F phi)")
+        return
     
-    señales = { 
-        'senoidal': _generar_senoidal(t, n, fs, F, A, R, ts),
+    # Parámetros fijos
+    t = np.linspace(0, 2.0, 1000)  # De 0 a 2 segundos para ver 2 ciclos de la referencia
+    ts = 0.01  # Periodo de muestreo
+    n = np.arange(0, 201)  # Muestras discretas
+    
+    # Generar ambas señales (modificada y referencia)
+    señales = {
+        'modificada': {
+            'analogica': A * np.sin(2 * np.pi * F * t + phi),
+            'discreta': A * np.sin(2 * np.pi * F * n * ts + phi),
+            'titulo': f'Señal modificada: A={A}, F={F}Hz, φ={phi:.2f}rad'
+        },
+        'referencia': {
+            'analogica': 1 * np.sin(2 * np.pi * 1 * t + 0),
+            'discreta': 1 * np.sin(2 * np.pi * 1 * n * ts + 0),
+            'titulo': 'Señal de referencia: A=1, F=1Hz, φ=0'
+        }
     }
     
-    plot_signals(t, n, ts, señales, F)
+    plot_signals(t, n, ts, señales)
 
-def _generar_senoidal(t, n, fs, F, A, R, ts):
-    return {
-        'analogica': (A * np.sin(2 * np.pi * F * t + R)),
-        'discreta': (A * np.sin(2 * np.pi * F * n * ts + R)),
-        'titulo': 'Señal senoidal'
-    }
-
-if _name_ == "_   main_":
+if __name__ == "__main__":
     capturar()
