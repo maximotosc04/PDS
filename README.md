@@ -1,79 +1,124 @@
-## Tarea 1: Graficación de Señales
+## Proyecto: Procesamiento de Señales (PDS2)
 
-  
+### Descripción
 
-## Descripción
+Este proyecto contiene **cuatro tareas** que abordan la generación, análisis y visualización de señales continuas, discretas y digitales en Python. Se utilizan librerías estándar de procesamiento de señales y graficación.
 
-Este proyecto proporciona funciones para generar y visualizar señales continuas y muestreadas en Python. Incluye cuatro tipos de señales:
+----------
 
-  
+## ✅ **Tareas incluidas**
 
-- **x₁(t)**: Senoidal de frecuencia 2 Hz.
+**Tarea**
 
-- **x₂(t)**: Exponencial decreciente multiplicada por la función escalón (u(t)).
+**Descripción**
 
-- **x₃(t)**: Onda triangular simétrica de frecuencia 2 Hz.
+**tarea_1**
 
-- **x₄(t)**: Onda cuadrada de frecuencia 2 Hz.
+Graficación de señales continuas y discretas: seno, exponencial amortiguada, triangular, cuadrada.
 
-  
+**tarea_2**
 
-La salida principal es una gráfica con las versiones continuas y muestreadas de cada señal.
+Generación de una onda senoidal continua parametrizada por su frecuencia.
 
-  
+**tarea_3**
 
-## Estructura del Proyecto
+Comparativa de señales senoidales continuas y discretas con diferentes parámetros (A, f, ϕ).
 
+**tarea_4**
+
+Conversión digital-analógica (DAC): Cálculo y graficación de salidas analógicas según los bits.
+
+----------
+
+## 📂 **Estructura del proyecto**
+
+
+**Estructura del repositorio:**  
 ├── main.py  
 ├── .gitignore  
 ├── requirements.txt  
-├── README.md
-------├── src/  
----------├──utils/   
---------------├── grapher.py  
-------├── tarea1.py
+├── README.md  
+├── src/  
+│ ├── tarea_1.py  
+│ ├── tarea_2.py  
+│ ├── tarea_3.py  
+│ ├── tarea_4.py 
+│ └── utils/  
+│ └── grapher.py 
 
-## Instalación
+----------
 
-**1. Clona este repositorio:**
-1. Clona el repositorio:
-   ```bash
-   git clone https://github.com/maximotosc04/PDS.git
-   cd PDS
-   ```
-2. (Opcional) Crea y activa un entorno virtual:
-   ```bash
-   python3 -m venv venv
-   source venv/bin/activate
-   ```
-3. Instala las dependencias:
-   ```bash
-   pip install -r requirements.txt
-   ```
-  
+## ⚙️ **Instalación**
 
-## Uso
+1️⃣ **Clona este repositorio:**
 
 
-Para ejecutar una actividad (ejemplo, en tu caso debes colocar tarea_1):
-```bash
-  python main.py act_1
-```
+`git clone https://github.com/maximotosc04/PDS2.git cd PDS2` 
 
-  
-## Dependencias: 
-- Python 3.6 o superior
+2️⃣ **(Opcional) Crea un entorno virtual:**
 
-- [NumPy](https://numpy.org/)
+`python -m venv venv # Windows: venv\Scripts\activate # Linux/macOS:  source venv/bin/activate` 
 
-- [SciPy](https://scipy.org/)
+3️⃣ **Instala dependencias:**
 
-- [Matplotlib](https://matplotlib.org/)
 
- 
+`pip install -r requirements.txt` 
 
-  
+----------
 
-## Licencia
+## 🚀 **Uso**
 
-Este proyecto está bajo la licencia MIT. Consulta el archivo \LICENSE\ para más detalles.
+`python main.py <tarea> [parámetros]` 
+
+**Tarea**
+
+**Comando**
+
+**tarea_1**
+
+`python main.py tarea_1`
+
+**tarea_2**
+
+`python main.py tarea_2 <frecuencia>`
+
+**tarea_3**
+
+`python main.py tarea_3 <amplitud> <frecuencia> <fase>`
+
+**tarea_4**
+
+`python main.py tarea_4 <bits>`
+
+### 📌 Ejemplos de ejecución:
+
+
+
+`python main.py tarea_1
+python main.py tarea_2 4
+python main.py tarea_3 1 2 0.785
+python main.py tarea_4 8` 
+
+----------
+
+## 📦 **Dependencias**
+
+-   Python 3.6 o superior
+    
+-   numpy
+    
+-   scipy
+    
+-   matplotlib
+    
+
+Instalación rápida:
+
+
+`pip install numpy scipy matplotlib` 
+
+----------
+
+## 📄 **Licencia**
+
+Este proyecto está licenciado bajo **MIT**. Consulta el archivo `LICENSE` para más información.
