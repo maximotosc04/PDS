@@ -1,29 +1,24 @@
 import numpy as np
-from src.utils.grapher import plot_signals
-import sys
+from src.utils.grapher import continuous_plotter
 
-def capturar():
-    """Genera todas las señales y las envía a graficar"""
-    
-    F = float(sys.argv[2])
-    print(F)
-    t = np.linspace(-1.0, 5.0, 1000)
-    fs = 40.0
-    ts = 1.0/fs
-    n = np.arange(-40, 201)
-    
-    señales = { 
-        'senoidal': _generar_senoidal(t, n, fs, F),
-    }
-    
-    plot_signals(t, n, ts, señales, F)
+def graficar_onda(frecuencia_deseada):
+    """Genera y grafica una señal senoidal continua con frecuencia dada."""
 
-def _generar_senoidal(t, n, fs, F):
-    return {
-        'analogica': np.sin(2 * np.pi * F * t),
-        'discreta': np.sin(2 * np.pi * F * n / fs),
-        'titulo': 'Señal senoidal'
-    }
+    # Parámetros de la señal
+    amplitud = 1.0
+    frecuencia = float(frecuencia_deseada)
+    t = np.linspace(0.0, 5.0, 1000)
+    xt = amplitud * np.sin(2 * np.pi * frecuencia * t)
 
-if __name__ == "_   _main__":
-    capturar()
+    # Parámetros para graficar
+    titulo = f"Onda Senoidal Continua - Frecuencia: {frecuencia} Hz"
+    subtitulo = "Señal senoidal"
+    xlabel = "Tiempo [s]"
+    ylabel = "Amplitud"
+
+    # Mostrar la gráfica
+    continuous_plotter(t, xt, titulo, subtitulo, xlabel, ylabel)
+
+if __name__ == "__main__":
+    # Prueba directa (puedes eliminar esto si solo usas el main.py)
+    graficar_onda(2)

@@ -1,72 +1,63 @@
-# src/utils/grapher.py
 import matplotlib.pyplot as plt
-from matplotlib.pyplot import stem
 
-# Función genérica para Tareas 1-2
-def plot_signals(t, signals_dict, title="Señal"):
-    """Grafica múltiples señales desde un diccionario"""
-    plt.style.use('ggplot')
-    plt.figure(figsize=(10, 4))
-    
-    for label, signal in signals_dict.items():
-        plt.plot(t, signal, label=label)
-    
-    plt.title(title)
-    plt.xlabel('Tiempo [s]')
-    plt.ylabel('Amplitud')
+def mostrar_graficas(tiempo, señal_continua, indices, señal_discreta, tiempo_discreto, titulo):
+    plt.figure(figsize=(10, 8))
+    plt.subplots_adjust(hspace=0.5)
+
+    # Continua
+    plt.subplot(3, 1, 1)
+    plt.plot(tiempo, señal_continua, color='blue', linewidth=2)
+    plt.title(f"{titulo} (Continua)")
+    plt.xlabel("Tiempo (s)")
+    plt.ylabel("Amplitud")
+    plt.grid(True)
+
+    # Discreta
+    plt.subplot(3, 1, 2)
+    plt.stem(indices, señal_discreta, linefmt='r', markerfmt='ro', basefmt="k")
+    plt.title("Discreta (Índices)")
+    plt.xlabel("Índice n")
+    plt.ylabel("Amplitud")
+    plt.grid(True)
+
+    # Superposición
+    plt.subplot(3, 1, 3)
+    plt.plot(tiempo, señal_continua, color='blue', linewidth=2, label="Continua")
+    plt.stem(tiempo_discreto, señal_discreta, linefmt='r', markerfmt='ro', basefmt="k", label="Discreta")
+    plt.title("Comparativa continua y discreta")
+    plt.xlabel("Tiempo (s)")
+    plt.ylabel("Amplitud")
     plt.legend()
-    plt.grid(True, linestyle='--', alpha=0.6)
+    plt.grid(True)
+
     plt.tight_layout()
     plt.show()
 
-# Función específica para Tarea 3
-def plot_continuous_discrete(t, n, ts, cont_signal, disc_signal, title, reference_signal=None):
-    """Muestra señal continua y discreta con opción de referencia"""
-    plt.style.use('ggplot')
-    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10, 6))
-    
-    # Graficar referencia si existe
-    if reference_signal:
-        ax1.plot(t, reference_signal['analogica'], '--b', label='Referencia')
-        ax2.stem(n*ts, reference_signal['discreta'], linefmt='--b', markerfmt='bo', basefmt=" ", label='Referencia')
-    
-    # Señal principal
-    ax1.plot(t, cont_signal, '-r', label='Señal modificada')
-    ax1.set_title(f'{title} (Continua)')
-    ax1.set_xlabel('Tiempo [s]')
-    ax1.set_ylabel('Amplitud')
-    ax1.legend()
-    ax1.grid(True, linestyle='--', alpha=0.6)
-    
-    ax2.stem(n*ts, disc_signal, linefmt='-r', markerfmt='ro', basefmt=" ", label='Señal modificada')
-    ax2.set_title(f'{title} (Discreta)')
-    ax2.set_xlabel('Tiempo [s]')
-    ax2.set_ylabel('Amplitud')
-    ax2.legend()
-    ax2.grid(True, linestyle='--', alpha=0.6)
-    
+
+def continuous_plotter(t, señal_modificada, titulo, subtitulo, xlabel, ylabel, señal_referencia=None):
+    plt.figure(figsize=(8, 4))
+    plt.plot(t, señal_modificada, label=subtitulo, color='blue', linewidth=2)
+
+    if señal_referencia is not None:
+        plt.plot(t, señal_referencia, '--', color='red', label='Referencia')
+
+    plt.title(titulo)
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
+    plt.legend()
+    plt.grid(True)
     plt.tight_layout()
     plt.show()
 
-# Función específica para Tarea 4
-def plot_dac_conversion(t, original, digital, reconstructed, bits):
-    """Muestra el proceso completo ADC-DAC"""
-    plt.style.use('ggplot')
-    fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(10, 8))
-    
-    ax1.plot(t, original, '-b')
-    ax1.set_title('Señal Analógica Original')
-    ax1.grid(True, linestyle='--', alpha=0.6)
-    
-    ax2.stem(t[::len(t)//20], digital[::len(t)//20], linefmt='-r', markerfmt='ro', basefmt=" ")
-    ax2.plot(t, digital, ':r', alpha=0.5)
-    ax2.set_title(f'Señal Digitalizada ({bits} bits, {2**bits} niveles)')
-    ax2.grid(True, linestyle='--', alpha=0.6)
-    
-    ax3.plot(t, reconstructed, '-g')
-    ax3.set_title('Señal Reconstruida por DAC')
-    ax3.grid(True, linestyle='--', alpha=0.6)
-    
-    plt.suptitle(f'Proceso de Conversión Digital-Analógico (DAC de {bits} bits)')
+
+def discrete_plotter(n, señal_modificada, señal_referencia, titulo, xlabel, ylabel):
+    plt.figure(figsize=(8, 4))
+    plt.stem(n, señal_modificada, linefmt='b-', markerfmt='bo', basefmt="k", label='Modificada')
+    plt.stem(n, señal_referencia, linefmt='r--', markerfmt='ro', basefmt="k", label='Referencia')
+    plt.title(titulo)
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
+    plt.legend()
+    plt.grid(True)
     plt.tight_layout()
     plt.show()

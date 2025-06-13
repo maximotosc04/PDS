@@ -1,29 +1,20 @@
 import numpy as np
-from src.utils.grapher import plot_dac_conversion
-import sys
+from src.utils.grapher import continuous_plotter
 
-def simular_dac(default_bits=8):
-    """Simula el proceso completo de conversión ADC-DAC"""
-    try:
-        bits = int(sys.argv[2]) if len(sys.argv) > 2 else default_bits
-    except (ValueError, IndexError):
-        print("¡Error en bits! Usando valor por defecto (8 bits)")
-        bits = default_bits
-    
-    # 1. Generar señal analógica original
-    t = np.linspace(0, 1, 1000)  # 1 segundo
-    f = 2  # Hz
-    original = np.sin(2 * np.pi * f * t)
-    
-    # 2. Proceso de digitalización (ADC)
-    niveles = 2**bits
-    digital = np.round(original * (niveles/2 - 1)) / (niveles/2 - 1)
-    
-    # 3. Reconstrucción (DAC) - Filtrado simple
-    reconstructed = np.convolve(digital, np.ones(10)/10, mode='same')
-    
-    # 4. Visualización
-    plot_dac_conversion(t, original, digital, reconstructed, bits)
+def calcular_dac(bits):
+    VFS = 5.0  # Voltaje de referencia máximo
+    niveles = 2 ** bits
+    paso = VFS / (niveles - 1)
+    resolucion = 100 / (niveles - 1)
 
-if __name__ == "__main__":
-    simular_dac()
+    entradas = np.arange(niveles)
+    salidas_analogicas = entradas * paso
+
+    print("\nResultados del DAC:")
+    print(f"Bits: {bits}")
+    print(f"Niveles: {niveles}")
+    print(f"Tamaño del paso: {paso:.4f} V")
+    print(f"Resolución: {resolucion:.4f} %")
+
+    titulo = f"Salida Analógica del DAC de {bits} bits"
+    continuous_plotter(entradas, salidas_analogicas, titulo, "Salida del DAC", "Entrada Digital", "Voltaje de Salida [V]")
